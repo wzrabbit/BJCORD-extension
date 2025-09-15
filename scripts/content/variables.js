@@ -125,7 +125,6 @@
 
 // BOJ Levels
 const bj_level = {
-  0: "Unrated",
   1: "Bronze V",
   2: "Bronze IV",
   3: "Bronze III",

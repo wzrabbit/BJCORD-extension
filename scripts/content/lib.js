@@ -322,7 +322,7 @@ async function getWebhookMessage(
 /**
  * 문제 티어에 맞는 이미지 URL을 반환합니다.
  *
- * @param {string} level 문제 티어 (Bronze V ~ Ruby I, Unrated 등)
+ * @param {string} level 문제 티어 (Bronze V ~ Ruby I, Unrated, Not Ratable)
  * @returns {string} 티어에 해당하는 이미지 URL
  */
 function getLevelImg(level) {
@@ -388,7 +388,7 @@ async function sendMessage(message, url) {
 /**
  * 문제의 티어에 맞는 색상을 리턴합니다.
  *
- * @param {string} tier 문제의 티어 영문 (Platinum IV)
+ * @param {string} tier 문제의 티어 영문 (ex: Platinum IV)
  * @returns {number} 티어에 해당하는 색상 코드
  */
 const getColor = (tier) => {
@@ -422,6 +422,22 @@ async function getProblemData(id) {
     task: "solvedProblemFetch",
     problemId: id,
   });
+}
+
+/**
+ * 주어진 문제의 영문 티어명을 반환합니다.
+ *
+ * @param {object} problemData 문제 데이터
+ * @returns {string} 문제의 티어 영문 (ex: Platinum IV)
+ */
+function getProblemTierText(problemData) {
+  const { level, isLevelLocked } = problemData;
+
+  if (level === 0 && isLevelLocked) {
+    return "Not Ratable";
+  }
+
+  return bj_level[level];
 }
 
 /**
